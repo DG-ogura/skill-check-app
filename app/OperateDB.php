@@ -1,24 +1,27 @@
 <?php
 
-namespace App\app;
+namespace App;
+use \PDO;
 
 class OperateDB
 {
     // DB接続
     public function connect_db($dsn, $user, $pass)
     {
-        $db = new PDO($dsn, $user, $pass);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $db;
-    } catch(PDOException $e) {
-        return 2;
+        try {
+            $db = new PDO($dsn, $user, $pass);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $db;
+        } catch(PDOException $e) {
+            return 2;
+        }
     }
 
     // DB情報取得
-    public function list_db($db)
+    public function list_db($db, $table)
     {
         try {
-            $stmt = $db->prepare("SELECT * FROM skill_user");
+            $stmt = $db->prepare("SELECT * FROM $table");
             $stmt->execute();
             $row = $stmt->fetchAll();
             return $row;

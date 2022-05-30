@@ -4,37 +4,60 @@ require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-echo $_ENV['DB_DATABASE'];  
-echo "<br>";
-echo $_ENV['DB_USERNAME'];  
-echo "<br>";
-echo $_ENV['DB_PASSWORD'];  
+use App\OperateDB;
+
+$operate = new OperateDB();
+
+$dsn = $_ENV['DB_CONNECTION'] . ":" . "host=" . $_ENV['DB_HOST'] . "; dbname=" . $_ENV['DB_DATABASE'] . "; charset=utf8";
+$user = $_ENV['DB_USERNAME'];
+$pass = $_ENV['DB_PASSWORD'];
+$table = $_ENV['SKILL_USER'];
+
+// echo $dsn;
+
+//echo $_ENV['DB_DATABASE'];  
+//echo "<br>";
+//echo $_ENV['DB_USERNAME'];  
+//echo "<br>";
+//echo $_ENV['DB_PASSWORD'];  
 
 //DBに接続
-//$db = $operate->connect_db($dsn, $user, $pass);
-//if ($db === 2) {
+$db = $operate->connect_db($dsn, $user, $pass);
+if ($db === 2) {
 //    $operate->syserr();
-//    exit;
-//}
+    echo "システムエラー";
+    exit;
+}
 
 //DBから全ての情報を取得
-//$getinfo = $operate->list_db($db);
-//if ($db === 2) {
+$getinfo = $operate->list_db($db, $table);
+if ($db === 2) {
 //    $operate->syserr();
-//    exit;
-//}
+    echo "システムエラー";
+    exit;
+}
 
-//foreach($getinfo as $product_id) {
-//    $result .= "<tr>"
-//            . "<td>"
-//            . $product_id[1]
-//            . "</td>"
-//            . "<td>"
-//            . "&yen;"
-//            . $product_id[2]
-//            . "</td>"
-//            . "</tr>";
-//}
+$result = '';
+//var_dump($getinfo);
+foreach($getinfo as $ai_id) {
+    $result .= "<tr>"
+            . "<td>"
+            . $ai_id[1]
+            . "</td>"
+            . "<td>"
+            . $ai_id[2]
+            . "</td>"
+            . "<td>"
+            . $ai_id[3]
+            . "</td>"
+            . "<td>"
+            . $ai_id[4]
+            . "</td>"
+            . "<td>"
+            . $ai_id[5]
+            . "</td>"
+            . "</tr>";
+}
 
 ?>
 
@@ -61,8 +84,11 @@ echo $_ENV['DB_PASSWORD'];
     <div class="result">
     <table id="result" border="3">
     <tr>
-        <th>商品名</th>
-        <th>金額</th>
+        <th>ユーザID</th>
+        <th>スキルID</th>
+        <th>ポイント</th>
+        <th>承認</th>
+        <th>申請日時</th>
     </tr>
         <?php echo $result; ?>
     </table>
