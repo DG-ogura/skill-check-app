@@ -18,7 +18,7 @@
 		<td><input name="input_pw" type="text" value=""></td>
 	</tr>
 </table>
-<input type="submit" value="認証">
+<input type="submit" value="ログイン">
 <input type="hidden" name="mode" value="login">
 </form>
 </body>
