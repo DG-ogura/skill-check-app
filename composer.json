@@ -2,7 +2,7 @@
     "name": "ogura/20220530",
     "autoload": {
         "psr-4": {
-            "Ogura\\20220530\\": "app/"
+            "App\\": "app/"
         }
     },
     "authors": [
@@ -11,5 +11,7 @@
             "email": "ogura@designet.co.jp"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
 }

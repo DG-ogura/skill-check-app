@@ -1,6 +1,6 @@
 <?php
 
-namespace Ogura\\20220530\\;
+namespace App\app;
 
 class OperateDB
 {
