@@ -2,7 +2,7 @@
     "name": "ogura/20220530",
     "autoload": {
         "psr-4": {
-            "Ogura\\20220530\\": "src/"
+            "Ogura\\20220530\\": "app/"
         }
     },
     "authors": [
