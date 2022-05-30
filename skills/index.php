@@ -18,4 +18,5 @@
     <div class="errmsg">
         <p><?php echo $errmsg; ?></p>
     </div>
-    </html>
+</body>
+</html>
