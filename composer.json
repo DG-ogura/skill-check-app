@@ -1,0 +1,15 @@
+{
+    "name": "ogura/20220530",
+    "autoload": {
+        "psr-4": {
+            "Ogura\\20220530\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "DG-ogura",
+            "email": "ogura@designet.co.jp"
+        }
+    ],
+    "require": {}
+}
