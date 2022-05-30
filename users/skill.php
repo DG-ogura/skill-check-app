@@ -11,8 +11,8 @@ $operate = new OperateDB();
 $dsn = $_ENV['DB_CONNECTION'] . ":" . "host=" . $_ENV['DB_HOST'] . "; dbname=" . $_ENV['DB_DATABASE'] . "; charset=utf8";
 $user = $_ENV['DB_USERNAME'];
 $pass = $_ENV['DB_PASSWORD'];
-$table = $_ENV['SKILL_USER'];
-
+$main_table = $_ENV['USER'];
+$join_table = $_ENV['SKILL_USER'];
 // echo $dsn;
 
 //echo $_ENV['DB_DATABASE'];  
@@ -29,16 +29,26 @@ if ($db === 2) {
     exit;
 }
 
-//DBから全ての情報を取得
-$getinfo = $operate->list_db($db, $table);
+//多対多
+$getinfo = $operate->join_db($db, $main_table, $join_table);
 if ($db === 2) {
-//    $operate->syserr();
-    echo "システムエラー";
-    exit;
+    //    $operate->syserr();
+        echo "システムエラー";
+        exit;
 }
 
+var_dump($getinfo);
+
+//DBから全ての情報を取得
+//$getinfo = $operate->list_db($db, $main_table);
+//if ($db === 2) {
+//    $operate->syserr();
+//    echo "システムエラー";
+//    exit;
+//}
+
+/*
 $result = '';
-//var_dump($getinfo);
 foreach($getinfo as $ai_id) {
     $result .= "<tr>"
             . "<td>"
@@ -58,6 +68,7 @@ foreach($getinfo as $ai_id) {
             . "</td>"
             . "</tr>";
 }
+*/
 
 ?>
 

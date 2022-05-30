@@ -31,4 +31,18 @@ class OperateDB
         }
     }
 
+    // 多対多での取得
+    public function join_db($db, $main_table, $join_table)
+    {
+        try {
+            $stmt = $db->prepare("SELECT * FROM $main_table JOIN $join_table ON $main_table.id = $join_table.user_id");
+            $stmt->execute();
+            $row = $stmt->fetchAll();
+            return $row;
+        //例外発生
+        } catch(PDOException $e) {
+            return 2;
+        }
+    }   
+
 }
