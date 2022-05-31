@@ -11,8 +11,11 @@ $operate = new OperateDB();
 $dsn = $_ENV['DB_CONNECTION'] . ":" . "host=" . $_ENV['DB_HOST'] . "; dbname=" . $_ENV['DB_DATABASE'] . "; charset=utf8";
 $user = $_ENV['DB_USERNAME'];
 $pass = $_ENV['DB_PASSWORD'];
-$main_table = $_ENV['USER'];
-$join_table = $_ENV['SKILL_USER'];
+$user_table = $_ENV['USER'];
+$middle_table = $_ENV['SKILL_USER'];
+$skill_table = $_ENV['SKILL'];
+$login_user = 'ogura';
+
 // echo $dsn;
 
 //echo $_ENV['DB_DATABASE'];  
@@ -30,14 +33,14 @@ if ($db === 2) {
 }
 
 //多対多
-$getinfo = $operate->join_db($db, $main_table, $join_table);
+$getinfo = $operate->join_db($db, $user_table, $middle_table, $skill_table, $login_user);
 if ($db === 2) {
     //    $operate->syserr();
         echo "システムエラー";
         exit;
 }
 
-var_dump($getinfo);
+//var_dump($getinfo);
 
 //DBから全ての情報を取得
 //$getinfo = $operate->list_db($db, $main_table);
@@ -47,10 +50,13 @@ var_dump($getinfo);
 //    exit;
 //}
 
-/*
+
 $result = '';
 foreach($getinfo as $ai_id) {
     $result .= "<tr>"
+            . "<td>"
+            . $ai_id[7]
+            . "</td>"
             . "<td>"
             . $ai_id[1]
             . "</td>"
@@ -66,9 +72,23 @@ foreach($getinfo as $ai_id) {
             . "<td>"
             . $ai_id[5]
             . "</td>"
-            . "</tr>";
+            . "<td>"
+            . $ai_id[8]
+            . "</td>"
+            . "<td>"
+            . $ai_id[13]
+            . "</td>"
+            . "<td>"
+            . $ai_id[9]
+            . "</td>"
+            . "<td>"
+            . $ai_id[11]
+            . "</td>"
+            . "<td>"
+            . $ai_id[10]
+            . "</td>"
+            . "<tr>";
 }
-*/
 
 ?>
 
@@ -95,11 +115,17 @@ foreach($getinfo as $ai_id) {
     <div class="result">
     <table id="result" border="3">
     <tr>
-        <th>ユーザID</th>
         <th>スキルID</th>
+        <th>名前</th>
+        <th>メール</th>
+        <th>パスワード</th>
+        <th>権限</th>
+        <th>部署ID</th>
+        <th>スキルID</th>
+        <th>スキル</th>
         <th>ポイント</th>
-        <th>承認</th>
         <th>申請日時</th>
+        <th>承認</th>
     </tr>
         <?php echo $result; ?>
     </table>

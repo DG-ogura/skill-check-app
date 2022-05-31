@@ -15,8 +15,5 @@
     <div class="top">
         <h1 class="title">@スキルを変更します@</h1>
     </div>
-    <div class="errmsg">
-        <p><?php echo $errmsg; ?></p>
-    </div>
 </body>
 </html>

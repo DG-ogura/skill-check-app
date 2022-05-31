@@ -78,8 +78,5 @@ foreach($getinfo as $ai_id) {
         <?php echo $result; ?>
     </table>
     </div>
-    <div class="errmsg">
-        <p><?php echo $errmsg; ?></p>
-    </div>
 </body>
 </html>

@@ -15,7 +15,4 @@
     <div class="top">
         <h1 class="title">@ようこそ@</h1>
     </div>
-    <div class="errmsg">
-        <p><?php echo $errmsg; ?></p>
-    </div>
     </html>
