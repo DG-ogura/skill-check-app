@@ -1,12 +1,14 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+require __DIR__ . '/../../vendor/autoload.php';
+//$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+//$dotenv->load();
 
-use App\OperateDB;
+use App\Controllers\DBController;
 
-$operate = new OperateDB();
+$operate = new DBController();
+//セッションの開始
+session_start();
 
 $dsn = $_ENV['DB_CONNECTION'] . ":" . "host=" . $_ENV['DB_HOST'] . "; dbname=" . $_ENV['DB_DATABASE'] . "; charset=utf8";
 $user = $_ENV['DB_USERNAME'];
@@ -14,7 +16,7 @@ $pass = $_ENV['DB_PASSWORD'];
 $user_table = $_ENV['USER'];
 $middle_table = $_ENV['SKILL_USER'];
 $skill_table = $_ENV['SKILL'];
-$login_user = 'ogura';
+$login_user = $_SESSION["name"];
 
 // echo $dsn;
 
@@ -25,7 +27,7 @@ $login_user = 'ogura';
 //echo $_ENV['DB_PASSWORD'];  
 
 //DBに接続
-$db = $operate->connect_db($dsn, $user, $pass);
+$db = $operate->connect($dsn, $user, $pass);
 if ($db === 2) {
 //    $operate->syserr();
     echo "システムエラー";
@@ -33,7 +35,7 @@ if ($db === 2) {
 }
 
 //多対多
-$getinfo = $operate->join_db($db, $user_table, $middle_table, $skill_table, $login_user);
+$getinfo = $operate->join($db, $user_table, $middle_table, $skill_table, $login_user);
 if ($db === 2) {
     //    $operate->syserr();
         echo "システムエラー";
@@ -101,15 +103,16 @@ foreach($getinfo as $ai_id) {
 </head>
 <body>
 <div class="header">
-        <a href="../home/index.php">■ホーム</a>
+        <a href="index.php">■ホーム</a>
         <a>&nbsp;■自分のスキル</a>
-        <a href="../users/skill_edit.php">&nbsp;■スキル点数変更</a>
-        <a href="../skills/index.php">&nbsp;■スキル一覧</a>
+        <a href="skill_edit.php">&nbsp;■スキル点数変更</a>
+        <a href="skill_list.php">&nbsp;■スキル一覧</a>
+        <a href="login.php">&nbsp;■ログアウト</a>
     </div>
     </div>
     <br>
     <div class="top">
-        <h1 class="title">@こちらがあなたのスキル情報です@</h1>
+        <h1 class="title">@こちらが<?php echo $_SESSION["name"]; ?>さんのスキル情報です@</h1>
     </div>
     <br>
     <div class="result">

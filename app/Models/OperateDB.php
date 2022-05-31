@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 use \PDO;
 
 class OperateDB
@@ -17,6 +17,22 @@ class OperateDB
         }
     }
 
+    // ログイン時のユーザID取得
+    public function set_id($db, $user, $pass)
+    {
+        try {
+            $user = "'$user'";
+            $pass = "'$pass'";
+            $stmt = $db->prepare("SELECT * FROM user WHERE name = $user and password = $pass");
+            $stmt->execute();
+            $row = $stmt->fetchAll();
+            return $row;
+        //例外発生
+        } catch(PDOException $e) {
+            return 2;
+        }
+    }
+    
     // DB情報取得
     public function list_db($db, $table)
     {
@@ -30,6 +46,21 @@ class OperateDB
             return 2;
         }
     }
+
+    // スキルポイント変更
+    public function modify_point($db, $id, $point)
+    {
+        try {
+            $id = "'$id'";
+            $point = "'$point'";
+            $stmt = $db->prepare("UPDATE skill_user SET point = $point WHERE user_id = $id");
+            $row = $stmt->execute();
+            return $row;
+            //例外発生
+            } catch(PDOException $e) {
+                return 2;
+            }
+        }
 
     // 多対多での取得
     public function join_db($db, $user_table, $middle_table, $skill_table, $login_user)

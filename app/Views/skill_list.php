@@ -1,12 +1,15 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+require __DIR__ . '/../../vendor/autoload.php';
+//$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+//$dotenv->load();
 
-use App\OperateDB;
+use App\Controllers\DBController;
 
-$operate = new OperateDB();
+$operate = new DBController();
+
+//セッションの開始
+session_start();
 
 $dsn = $_ENV['DB_CONNECTION'] . ":" . "host=" . $_ENV['DB_HOST'] . "; dbname=" . $_ENV['DB_DATABASE'] . "; charset=utf8";
 $user = $_ENV['DB_USERNAME'];
@@ -61,10 +64,11 @@ foreach($getinfo as $ai_id) {
 </head>
 <body>
     <div class="header">
-        <a href="../home/index.php">■ホーム</a>
-        <a href="../users/skill.php">&nbsp;■自分のスキル</a>
-        <a href="../users/skill_edit.php">&nbsp;■スキル点数変更</a>
+        <a href="index.php">■ホーム</a>
+        <a href="skill.php">&nbsp;■自分のスキル</a>
+        <a href="skill_edit.php">&nbsp;■スキル点数変更</a>
         <a>&nbsp;■スキル一覧</a>
+        <a href="login.php">&nbsp;■ログアウト</a>
     </div>
     <div class="top">
         <h1 class="title">@スキルの一覧です@</h1>
